@@ -1,9 +1,30 @@
-const myLibrary = [];
-const title = document.querySelector('.title');
-const author = document.querySelector('.author');
-const pages = document.querySelector('.pages');
-const isRead = document.querySelector('.isRead');
+const submitNewBook = document.getElementById('book-submit');
 
+class Library {
+    constructor() {
+        this.books = []
+    }
+
+    addBook(newBook) {
+        if (!this.isInLibrary(newBook)) {
+            this.books.push(newBook)
+        }
+    }
+
+    removeBook(title) {
+        this.books = this.books.filter((book) => book.title !== title)
+    }
+
+    getBook(title) {
+        return this.books.find((book) => book.title === title)
+    }
+
+    isInLibrary(newBook) {
+        return this.books.some((book) => book.title === newBook.title)
+    }
+}
+
+const library = new Library()
 
 class Book {
     constructor(title, author, pages, isRead = false) {
@@ -11,15 +32,21 @@ class Book {
         this.author = author
         this.pages = pages
         this.isRead = isRead;
-        this.info = function () {
-            const readOrNot = this.isRead ? 'read' : 'not read yet';
-            return (`${this.title} by ${this.author}, ${this.pages} pages, ${readOrNot}`)
-        }
     }
 }
 
-function addBookToLibrary(title, author, pages, isRead) {
-    let newBook = new Book(title, author, pages, isRead);
-    myLibrary.push(newBook);
+const getBookInfo = () => {
+    const title = document.getElementById('book-name').value
+    const author = document.getElementById('author-name').value
+    const pages = document.getElementById('pages').value
+    const isRead = document.getElementById('isRead').checked
+    return new Book(title, author, pages, isRead)
 }
 
+const addBook = (e) => {
+    e.preventDefault()
+    const newBook = getBookInfo();
+    library.addBook(newBook);
+}
+
+submitNewBook.addEventListener('click', addBook)

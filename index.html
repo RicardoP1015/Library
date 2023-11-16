@@ -9,11 +9,29 @@
 </head>
 <body>
     <header>
-        <h1></h1>
-        <div class="sign-in"></div>
+        <h1>The Mysia Library</h1>
+        <div class="sign-in">
+            <button type="button">Sign-In</button>
+        </div>
     </header>
     <aside>
-        <div class="info"></div>
+        <div class="info">
+            <h3>New Book</h3>
+            <div class="new-book-wrapper">
+                <label for="book-name">Name</label>
+                <input id="book-name" name="book-name" type="text">
+                <label for="author-name">By</label>
+                <input id="author-name" name="author-name" type="text">
+                <label for="pages">How Many Pages</label>
+                <input id="pages" name="pages" type="number">
+                <div class="read-wrapper">
+                    <h4>Read?</h4>
+                    <label for="isRead">Yes</label>
+                    <input name="isRead" id="isRead" type="radio">
+                </div>
+                <button id="book-submit" type="button">Submit</button>
+            </div>
+        </div>
     </aside>
     <section>
         <div class="libary-grid">
