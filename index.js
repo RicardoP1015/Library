@@ -48,12 +48,12 @@ const addToLibrary = () => {
     updateLibraryGrid();
     for (let book of library.books) {
         createBook(book);
-    }
-}
+    };
+};
 
 const updateLibraryGrid = () =>{
     libraryGrid.innerHTML = '';
-}
+};
 
 const createBook = (book) => {
     const bookItem = document.createElement('div');
@@ -77,7 +77,7 @@ const createBook = (book) => {
 
     if (book.isRead) {
         bookMark.classList.add('book-read');
-    }
+    };
 
     bookItem.appendChild(pages);
     titleWrapper.appendChild(title);
