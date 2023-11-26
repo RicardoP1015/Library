@@ -1,5 +1,8 @@
 const submitNewBook = document.getElementById('book-submit');
 const libraryGrid = document.querySelector('.library-grid');
+const title = document.getElementById('book-name')
+const author = document.getElementById('author-name')
+const pages = document.getElementById('pages')
 
 class Library {
     constructor() {
@@ -51,7 +54,7 @@ const addToLibrary = () => {
     };
 };
 
-const updateLibraryGrid = () =>{
+const updateLibraryGrid = () => {
     libraryGrid.innerHTML = '';
 };
 
@@ -70,7 +73,7 @@ const createBook = (book) => {
     author.classList.add('author');
     pages.classList.add('pages');
 
-    title.textContent = book.title;
+    title.textContent = `${book.title}`;
     author.textContent = `by ${book.author}`;
     pages.textContent = `${book.pages} pages`;
 
@@ -85,13 +88,29 @@ const createBook = (book) => {
     bookItem.appendChild(titleWrapper);
     bookItem.appendChild(bookMark);
     libraryGrid.appendChild(bookItem);
-}
+};
+
+const inputCheck = () => {
+    if (title.value === '' || author.value === '' || pages.value === '') {
+        title.placeholder = 'Please Enter Book';
+        author.placeholder = 'Please Enter Author';
+        pages.placeholder = 'Please Enter Amount';
+        return false;
+    } else {
+        return true;
+    };
+};
 
 const addBook = (e) => {
     e.preventDefault();
-    const newBook = getBookInfo();
-    library.addBook(newBook);
-    addToLibrary();
+    const validInput = inputCheck();
+    if (!validInput) {
+        return;
+    } else {
+        const newBook = getBookInfo();
+        library.addBook(newBook);
+        addToLibrary();
+    }
 };
 
 submitNewBook.addEventListener('click', addBook);
