@@ -151,8 +151,6 @@ input[type='checkbox'] {
     scale: 1.1;
 }
 
-
-
 .book-mark {
     width: 35px;
     height: 50px;
@@ -194,10 +192,12 @@ input[type='checkbox'] {
 
 .title {
     font-size: 25px;
+    padding: 0 5px;
 }
 
 .author {
     font-size: 15px;
+    padding: 0 5px;
 }
 
 .pages {

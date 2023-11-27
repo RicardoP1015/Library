@@ -78,9 +78,11 @@ const createBook = (book) => {
     deleteIcon.classList.add('fa-solid');
     deleteIcon.classList.add('fa-trash');
     deleteBtn.setAttribute('data-title', book.title);
-    deleteBtn.addEventListener('click', function (e) {
-        removeBook(e); 
-    });
+    deleteBtn.addEventListener('click', removeBook);
+    bookMark.textContent = book.isRead ? 'Read' : 'Not Read';
+    bookMark.classList.toggle('book-read', book.isRead);
+    bookMark.setAttribute('data-title', book.title);
+    bookMark.addEventListener('click', toggleRead);
     bookMark.classList.add('book-mark');
     titleWrapper.classList.add('title-wrapper');
     title.classList.add('title');
@@ -94,11 +96,8 @@ const createBook = (book) => {
 
     if (book.isRead) {
         bookMark.classList.add('book-read');
-        bookMark.textContent = 'Read'
-    } else {
-        bookMark.textContent = 'Not Read'
-    }
-
+    } 
+    
     bookItem.appendChild(pages);
     deleteBtn.appendChild(deleteIcon);
     bookTools.appendChild(deleteBtn);
@@ -132,7 +131,20 @@ const addBook = (e) => {
         saveLocal();
         addToLibrary();
         bookForm.reset();
-    }
+    };
+};
+
+const toggleRead = (e) => {
+    const title = e.target.getAttribute('data-title');
+    const book = library.getBook(title); 
+
+    if (book) {
+        book.isRead = !book.isRead; 
+        e.target.textContent = book.isRead ? 'Read' : 'Not Read'; 
+        e.target.classList.toggle('book-read', book.isRead); 
+
+        saveLocal(); 
+    };
 };
 
 const removeBook = (e) => {
@@ -141,20 +153,20 @@ const removeBook = (e) => {
     library.removeBook(title);
     saveLocal();
     addToLibrary();
-}
+};
 
 
 const saveLocal = () => {
-    localStorage.setItem('library', JSON.stringify(library.books))
-}
+    localStorage.setItem('library', JSON.stringify(library.books));
+};
 
 const loadLocal = () => {
     const books = JSON.parse(localStorage.getItem('library'));
     if (books) {
         library.books = books.map(bookData => new Book(bookData.title, bookData.author, bookData.pages, bookData.isRead));
         addToLibrary(); 
-    }
-}
+    };
+};
 
 submitNewBook.addEventListener('click', addBook);
-loadLocal()
+loadLocal();
