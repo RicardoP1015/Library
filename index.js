@@ -3,6 +3,9 @@ const libraryGrid = document.querySelector('.library-grid');
 const title = document.getElementById('book-name')
 const author = document.getElementById('author-name')
 const pages = document.getElementById('pages')
+const bookForm = document.getElementById('new-book-form')
+const deleteBtn = document.getElementById('delete-btn')
+const editBtn = document.getElementById('edit-btn')
 
 class Library {
     constructor() {
@@ -60,6 +63,9 @@ const updateLibraryGrid = () => {
 
 const createBook = (book) => {
     const bookItem = document.createElement('div');
+    const bookTools = document.createElement('div');
+    const deleteBtn = document.createElement('div');
+    const deleteIcon = document.createElement('i');
     const bookMark = document.createElement('div');
     const titleWrapper = document.createElement('div');
     const title = document.createElement('div');
@@ -67,6 +73,14 @@ const createBook = (book) => {
     const pages = document.createElement('div');
 
     bookItem.classList.add('book');
+    bookTools.classList.add('book-tools')
+    deleteBtn.classList.add('delete');
+    deleteIcon.classList.add('fa-solid');
+    deleteIcon.classList.add('fa-trash');
+    deleteBtn.setAttribute('data-title', book.title);
+    deleteBtn.addEventListener('click', function (e) {
+        removeBook(e); 
+    });
     bookMark.classList.add('book-mark');
     titleWrapper.classList.add('title-wrapper');
     title.classList.add('title');
@@ -80,9 +94,15 @@ const createBook = (book) => {
 
     if (book.isRead) {
         bookMark.classList.add('book-read');
-    };
+        bookMark.textContent = 'Read'
+    } else {
+        bookMark.textContent = 'Not Read'
+    }
 
     bookItem.appendChild(pages);
+    deleteBtn.appendChild(deleteIcon);
+    bookTools.appendChild(deleteBtn);
+    bookItem.appendChild(bookTools);
     titleWrapper.appendChild(title);
     titleWrapper.appendChild(author);
     bookItem.appendChild(titleWrapper);
@@ -109,8 +129,32 @@ const addBook = (e) => {
     } else {
         const newBook = getBookInfo();
         library.addBook(newBook);
+        saveLocal();
         addToLibrary();
+        bookForm.reset();
     }
 };
 
+const removeBook = (e) => {
+    const title = e.target.getAttribute('data-title') || e.target.parentNode.getAttribute('data-title');
+
+    library.removeBook(title);
+    saveLocal();
+    addToLibrary();
+}
+
+
+const saveLocal = () => {
+    localStorage.setItem('library', JSON.stringify(library.books))
+}
+
+const loadLocal = () => {
+    const books = JSON.parse(localStorage.getItem('library'));
+    if (books) {
+        library.books = books.map(bookData => new Book(bookData.title, bookData.author, bookData.pages, bookData.isRead));
+        addToLibrary(); 
+    }
+}
+
 submitNewBook.addEventListener('click', addBook);
+loadLocal()

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/img/Book.svg">
+    <script src="https://kit.fontawesome.com/00af512445.js" crossorigin="anonymous"></script>
     <script src="/index.js" defer></script>
     <title>Library</title>
 </head>
@@ -18,19 +20,16 @@
         <aside>
             <div class="info">
                 <h3>New Book</h3>
-                <form action="" class="new-book-wrapper ">
+                <form action="" class="new-book-wrapper" id="new-book-form">
                     <label for="book-name">Name</label>
-                    <input id="book-name" name="book-name" type="text" placeholder="Book Name">
+                    <input id="book-name" name="book-name" type="text" placeholder="Book Name" spellcheck="false" autocomplete="off">
                     <label for="author-name">By</label>
-                    <input id="author-name" name="author-name" type="text" placeholder="Author Name">
+                    <input id="author-name" name="author-name" type="text" placeholder="Author Name" spellcheck="false" autocomplete="off">
                     <label for="pages">How Many Pages</label>
-                    <input id="pages" name="pages" type="number" placeholder="Pages Long">
+                    <input id="pages" name="pages" type="number" placeholder="Pages Long" autocomplete="off">
                     <div class="read-wrapper">
-                        <h4>Read?</h4>
-                        <div class="input-wrapper">
-                        <label for="isRead">Yes</label>
+                        <label for="isRead">Read? <span>Yes</span></label>
                         <input name="isRead" id="isRead" type="checkbox">
-                        </div>
                     </div>
                     <button id="book-submit" type="button">Submit</button>
                 </form>

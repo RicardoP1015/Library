@@ -89,8 +89,9 @@ section {
 
 .read-wrapper {
     display: flex;
-    flex-direction: column;
     gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .read-wrapper h4 {
@@ -99,15 +100,12 @@ section {
     color: #fffff0;
 }
 
-.input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
 
-.input-wrapper input[type='checkbox'] {
+input[type='checkbox'] {
     width: 25px;
     outline: none;
+    cursor: pointer;
+
 }
 
 #book-submit {
@@ -116,6 +114,7 @@ section {
     background-color: #fffff0;
     border: 1px solid;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .book {
@@ -131,6 +130,29 @@ section {
     overflow: hidden;
 }
 
+.book-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 3px;
+    color: rgba(0, 0, 0, 0.127);
+    max-width: fit-content;
+}
+
+.delete,
+.edit {
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+}
+
+.delete:hover,
+.edit:hover {
+    color: black;
+    scale: 1.1;
+}
+
+
+
 .book-mark {
     width: 35px;
     height: 50px;
@@ -139,11 +161,28 @@ section {
     cursor: pointer;
     background-color: rgba(255, 0, 0, 0.26);
     border: 1px solid rgba(10, 10, 10, 0.235);
+    transition: ease-in-out 0.3s;
+    text-align: center; 
+    font-size: 14px;
+    color: #00000063;
+}
+
+.book-mark:hover {
+    background-color: red;
+    border-color: black;
 }
 
 .book-read {
     background-color: red;
     border-color: black;
+    transition: ease-in-out 0.3s;
+    color: black;
+}
+
+.book-read:hover {
+    background-color: rgba(255, 0, 0, 0.26);
+    border: 1px solid rgba(10, 10, 10, 0.235);
+    content: "Not Read";
 }
 
 .title-wrapper {
